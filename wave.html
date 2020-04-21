@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		.wave-position {
+			position: absolute;
+		  	top: 0;
+		  	left: 0;
+		  	width: 300px;
+		  	height: 300px;
+		}
+		.ui-content {
+			position:absolute;
+		  	top: 0;
+		  	left: 0;
+			width: 100vw;
+			height: 100vh;
+			background: url("https://gw.alicdn.com/tfs/TB1xuCNCy_1gK0jSZFqXXcpaXXa-1920-350.jpg") no-repeat;
+			background-attachment: fixed;
+			background-position: center center;
+			background-size:auto 100%;
+			overflow: hidden;
+		}
+		.wave{
+		  position:absolute;
+		  top: calc((100% - 30px)/2);
+		  left: calc((100% - 30px)/2);
+		  width: 30px;
+		  height: 30px;
+		  border-radius: 300px;
+		  background: url("https://gw.alicdn.com/tfs/TB1xuCNCy_1gK0jSZFqXXcpaXXa-1920-350.jpg") no-repeat;
+		  background-attachment: fixed;
+		  background-position: center center;
+		}
+		.wave0{
+		  z-index:2;
+		  background-size:auto 106%;
+		  animation:w 1s forwards;
+		}
+		.wave1{
+		  z-index:3;
+		  background-size:auto 102%;
+		  animation:w 1s .2s forwards;
+		}
+		.wave2{
+		  z-index:4;
+		  background-size:auto 104%;
+		  animation:w 1s .4s forwards;
+		}
+		.wave3{
+		  z-index:5;
+		  background-size:auto 101%;
+		  animation:w 1s .5s forwards;
+		}
+		.wave4{
+		  z-index:6;
+		  background-size:auto 102%;
+		  animation:w 1s .8s forwards;
+		}
+		.wave5{
+		  z-index:7;
+		  background-size:auto 100%;
+		  animation:w 1s 1s forwards;
+		}
+		@keyframes w{
+		  0%{
+		    top:calc((100% - 30px)/2);
+		    left:calc((100% - 30px)/2);
+		    width:30px;
+		    height:30px;
+		  }
+		  100%{
+		    top: calc((100% - 300px)/2);
+		    left: calc((100% - 300px)/2);
+		    width: 300px;
+		    height: 300px;
+		  }
+		}
+
+	</style>
+</head>
+<body>
+	<div class="ui-content"></div>
+	<!-- <div class="wave wave5"></div>
+	<div class="wave wave4"></div>
+	<div class="wave wave3"></div>
+	<div class="wave wave2"></div>
+	<div class="wave wave1"></div>
+	<div class="wave wave0"></div> -->
+	<script src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js"></script>
+	<script type="text/javascript">
+		let viewW = $(window).width();
+		let viewH =$(window).height();
+		let z = 2;
+
+		$(window).resize(function() {
+		  	viewW = $(window).width();
+			viewH =$(window).height();
+		});
+
+		getRandomPos()
+		function getRandomPos() {
+			let RandomW = getRandom(0, viewW)
+			let RandomH = getRandom(0, viewH)
+
+			z = z + 1;
+		  	_wave(RandomW, RandomH, z);
+
+		  	setTimeout(function () {
+		    	$('.water' + z).remove();
+		    	getRandomPos()
+		  	}, 2000);
+		}
+
+		function _wave(i, j, k) {
+		  $('.ui-content').prepend(
+		    '<div class="wave-position water' + k + '" style="z-index:' + k + ';top:' + (j - 150) + 'px;left:' + (i - 150) + 'px;">' +
+		    '<div class="wave-body">' +
+		    '<div class="wave wave5"></div>' +
+		    '<div class="wave wave4"></div>' +
+		    '<div class="wave wave3"></div>' +
+		    '<div class="wave wave2"></div>' +
+		    '<div class="wave wave1"></div>' +
+		    '<div class="wave wave0"></div>' +
+		    '</div>' +
+		    '</div>'
+		  );
+		  
+		}
+		function getRandom (min, max) {
+			return (Math.random() * (max - min + 1) | 0) + min
+		}
+	</script>
+</body>
+</html>
